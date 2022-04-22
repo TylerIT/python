@@ -3,71 +3,59 @@
 # Использовать функцию type() для проверки типа.
 # Элементы списка можно не запрашивать у пользователя, а указать явно, в программе.
 
-my_list = [105, 'This is my homework', True, False, 10.2297, {'name':'Igor', 'name_dog':'Shely'}, [11, 155.255, 'Hello']]
-for item in my_list:
-    print(item, '  ', type(item))
+list = (1, "2", True, [3, 4], 0.5, (1, 2), {'nuber1': 1, 'number2': 2})
+
+for el in list:
+    print(type(el), el)
  
  
  # 2. Для списка реализовать обмен значений соседних элементов.
 # Значениями обмениваются элементы с индексами 0 и 1, 2 и 3 и т. д.
 # При нечётном количестве элементов последний сохранить на своём месте.
 # Для заполнения списка элементов нужно использовать функцию input().
+
+# Решение через цикл for
 user_list = input('Введите элементы списка через пробел: ').split(' ')
-print(user_list)
-for item in range (0,len(user_list)-1, 2): #len(user_list)-1 --> для нечетного количества элементов, шаг 2, чтобы пребирать пары
-    user_list[item], user_list[item+1] = user_list[item+1], user_list[item]
-print(user_list)
+for i in range(0, len(user_list)-1, 2): #len(user_list)-1 --> для нечетного количества элементов, шаг 2, чтобы увеличивать i на 2
+    print('i =', i)
+    user_list[i], user_list[i + 1] = user_list[i + 1], user_list[i]
+    print(user_list)
+
+# Решение через цикл while
+list2 = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+i = 0
+while i < len(list2) - 1:
+    list2[i], list2[i + 1] = list2[i + 1], list2[i]
+    i += 2
+print(list2)
 
 
 # 3. Пользователь вводит месяц в виде целого числа от 1 до 12.
 # Сообщить, к какому времени года относится месяц (зима, весна, лето, осень).
 # Напишите решения через list и dict.
-user_month_1 = str(input('Введите номер месяца цифрой от 1 до 12: '))
-month_dict = {
-    '1': 'Зима',
-    '2': 'Зима',
-    '3': 'Весна',
-    '4': 'Весна',
-    '5': 'Весна',
-    '6': 'Лето',
-    '7': 'Лето',
-    '8': 'Лето',
-    '9': 'Осень',
-    '10': 'Осень',
-    '11': 'Осень',
-    '12': 'Зима',
-}
-print(f'Месяц с номером {user_month_1} это -', month_dict[user_month_1])
 
-user_month_2 = int(input('Введите, пожалуйста, номер месяца цифрой от 1 до 12 еще раз: '))
-list_month = ['Зима', 'Весна', 'Лето', 'Осень']
-if 1<= user_month_2 <=2 or user_month_2 == 12:
-    print(f'Mecяц с номером {user_month_2} это -', list_month[0])
-elif 3 <= user_month_2 <= 5:
-    print(f'Mecяц с номером {user_month_2} это -', list_month[1])
-elif 6 <= user_month_2 <= 8:
-    print(f'Mecяц с номером {user_month_2} это -', list_month[2])
-else:
-    print(f'Mecяц с номером {user_month_2} это -', list_month[3])
+month = int(input('Введите номер месяца цифрой от 1 до 12: '))
+
+d_month = {'winter': [12, 1, 2], 'Spring': [3, 4, 5], 'Summer': [6, 7, 8], 'autumn': [9, 10, 11]}
+
+for key in d_month:
+    if month in d_month[key]:
+        print(f' month {month} - is {key}')
+
+l_month = [['winter', 12, 1, 2], ['Spring', 3, 4, 5], ['Summer', 6, 7, 8], ['autumn', 9, 10, 11]]
+
+for el in l_month:
+    if month in el:
+        print(f' month {month} - is {el[0]}')
     
     
 # 4. Пользователь вводит строку из нескольких слов, разделённых пробелами.
 # Вывести каждое слово с новой строки. Строки нужно пронумеровать.
 # Если слово длинное, выводить только первые 10 букв в слове.
-user_text_1 = input('Введите, пожалуйста, любой текст. Не забудбте разделять вводимые слава пробелом: ').split()
-i = 0
-for word in user_text_1:
-    i += 1
-    if len(word) > 10:
-            word = word[:10]
-    print(f'{i}. {word}')
-# способ 2
-user_text_2 = input('Введите, еще раз, пожалуйста, любой текст. Не забудбте разделять вводимые слава пробелом: ').split()
-for k, word in enumerate(user_text_2, 1):
-    if len(word) > 10:
-            word = word[:10]
-    print(f'{k}. {word}')
-    
+
+l_str = input('Введите строку инескольких слов >>> ').split()
+for i, el in enumerate(l_str, 1):
+     print(f' {i}. {el[0:10]}')
     
 # 5. Реализовать структуру «Рейтинг»,
 # представляющую собой набор натуральных чисел,
@@ -82,13 +70,26 @@ for k, word in enumerate(user_text_2, 1):
 # Пользователь ввёл число 1. Результат: 7, 5, 3, 3, 2, 1.
 # Набор натуральных чисел можно задать сразу в коде, например, my_list = [7, 5, 3, 3, 2]
 
-my_list = [7, 5, 3, 3, 2]
-user_number = int(input('Введите рейтинг - это целое число: '))
-my_list.append(user_number)
-my_list.sort()
-my_list.reverse()
-result = (str(my_list).strip('[]'))
-print(result)
+rating = [7, 5, 3, 3, 2]
+print(rating)
+new_rat = int(input('Введите число от 0 до 10 >>> '))
+
+# Простой вариант решения
+rating.append(new_rat)
+rating.sort(reverse=True)
+print(f'Рейтинг обновлен: {rating}')
+
+# Алгоритмический вариант решения
+rating = [7, 5, 3, 3, 2]
+
+for i, el in enumerate(rating):
+    if new_rat >= el:
+        rating.insert(i, new_rat)
+        break
+    else:
+        rating.insert(len(rating), new_rat)
+
+print(f'Рейтинг обновлен: {rating}')
 
 
 # 6. (Дополнительно) Реализовать структуру данных «Товары».
@@ -117,6 +118,3 @@ print(result)
 # “количество”: [5, 2, 7],
 # “ед”: [“шт.”]
 # }
-
-name_product_key = 'название'
-peice = float(input('Введите цену товара: '))
