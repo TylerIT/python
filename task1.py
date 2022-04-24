@@ -23,43 +23,35 @@ print('Вы ввели  ', user_string)
 # и выведите в формате чч:мм:сс.
 # Используйте форматирование строк.
 
-user_time = int(input('Введите, пожалуйста, время в секудах:   '))
-sec = user_time % 60
-minute = (user_time // 60) % 60
-hour = user_time // 3600
-if sec < 10:
-    sec = f'0{sec}'
-if minute < 10:
-    minute = f'0{minute}'
-if hour < 10:
-    hour = f'0{hour}'
-
-print('Указанное вами время', f'{hour}:{minute}:{sec}')
+seconds = int(input('Введите количество секунд в виде целого числа >>> '))
+hours = (seconds // 3600)
+minutes = (seconds % 3600 // 60)
+sec = (seconds % 60)
+print(f'Часы: {hours}, минуты: {minutes}, секунды: {sec}')
 
 
 # 3. Узнайте у пользователя число n.
 # Найдите сумму чисел n + nn + nnn.
 # Например, пользователь ввёл число 3. Считаем 3 + 33 + 333 = 369.
 
-user_number = int(input('Введите целое число: '))
-number_1 = user_number
-number_2 = int(f'{user_number}{user_number}')
-number_3 = int(f'{user_number}{user_number}{user_number}')
-result = number_1 + number_2 + number_3
-print(result)
+n = input('Введите целое число: ')
+print(f'{n} + {n * 2} + {n * 3} = {int(n) + int(n * 2) + int(n * 3)}')
+
 
 # 4. Пользователь вводит целое положительное число.
 # Найдите самую большую цифру в числе.
 # Для решения используйте цикл while и арифметические операции.
-number = int(input('Bведите целое положительное число: '))
-remains = number % 10
-number = number // 10
-while number > 0:
-    if number % 10 > remains:
-        remains = number % 10
-    number = number // 10
-print(remains)
 
+user_number = int(input('Bведите целое положительное число: '))
+max_number = 0
+while user_number > 0:
+    last_dig = user_number % 10
+    if last_dig > max_number:
+        max_number = last_dig
+        if max_number == 9:
+            break
+    user_number = user_number // 10
+print(max_number)
 
 # 5. Запросите у пользователя значения выручки и издержек фирмы.
 # Определите, с каким финансовым результатом работает фирма.
@@ -88,13 +80,10 @@ revenue = float(input('Введите цифрами (положительное
 cost = float(input('Введите цифрами (положительное число) объем издержек фирмы за тот же период: '))
 profit = revenue - cost
 if profit > 0:
-    profitability = (profit / revenue)*100
-    profitability = round(profitability, 2)
     print(f'Прибыль фирмы ссотавила {profit} денежных единиц')
-    print(f'Рентабельность деятельности фирмы составила {profitability}%')
-    employees = int(input('Пожплуйста, введите количство сотрудников фирмы: '))
-    profit_employee = profitability / employees
-    profit_employee = round(profit_employee, 2)
+    print(f'Рентабельность деятельности фирмы составила {int((profit / revenue)*100)}%')
+    employees = int(input('Введите количество сотрудников фирмы: '))
+    profit_employee = int((profit / revenue)*100) / employees
     print(f'Прибыль на одного сотрудника составила {profit_employee} денежных единиц')
 
 elif profit < 0:
@@ -119,11 +108,12 @@ else:
 # 5-й день: 2,93
 # 6-й день: 3,22
 # Ответ: на шестой день спортсмен достиг результата — не менее 3 км.
-a = int(input('Результат первого дня спортсемена а = '))
-b = int(input('Результат котрого нужно достич b = '))
-# print(f'a = {a}, b = {b}') # не был уверен, что это значения a и b нужно выводить
-i = 0
+
+a = int(input('Результат первого дня спортсемена: '))
+b = int(input('Результат котрого нужно достичь: '))
+days = 0
 while a < b:
     a = a + a/10
-    i = i + 1
-print(f'Спортсмен достигнет результата на {i+1} день')
+    days += 1
+    print(f'на день {days} результат: {round(a, 2)}')
+print(f'Спортсмен достигнет результата в {b} км. на {days} день')
