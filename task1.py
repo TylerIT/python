@@ -23,18 +23,11 @@ print('Вы ввели  ', user_string)
 # и выведите в формате чч:мм:сс.
 # Используйте форматирование строк.
 
-user_time = int(input('Введите, пожалуйста, время в секудах:   '))
-sec = user_time % 60
-minute = (user_time // 60) % 60
-hour = user_time // 3600
-if sec < 10:
-    sec = f'0{sec}'
-if minute < 10:
-    minute = f'0{minute}'
-if hour < 10:
-    hour = f'0{hour}'
-
-print('Указанное вами время', f'{hour}:{minute}:{sec}')
+seconds = int(input('Введите количество секунд в виде целого числа >>> '))
+hours = (seconds // 3600)
+minutes = (seconds % 3600 // 60)
+sec = (seconds % 60)
+print(f'Часы: {hours}, минуты: {minutes}, секунды: {sec}')
 
 
 # 3. Узнайте у пользователя число n.
@@ -42,24 +35,28 @@ print('Указанное вами время', f'{hour}:{minute}:{sec}')
 # Например, пользователь ввёл число 3. Считаем 3 + 33 + 333 = 369.
 
 user_number = int(input('Введите целое число: '))
-number_1 = user_number
-number_2 = int(f'{user_number}{user_number}')
-number_3 = int(f'{user_number}{user_number}{user_number}')
-result = number_1 + number_2 + number_3
-print(result)
+n = str(user_number)
+print(n)
+nn = n * 2
+print(nn)
+nnn = n * 3
+print(nnn)
+summ = int(n) + int(nn) + int(nnn)
+print(summ)
 
 # 4. Пользователь вводит целое положительное число.
 # Найдите самую большую цифру в числе.
 # Для решения используйте цикл while и арифметические операции.
-number = int(input('Bведите целое положительное число: '))
-remains = number % 10
-number = number // 10
-while number > 0:
-    if number % 10 > remains:
-        remains = number % 10
-    number = number // 10
-print(remains)
-
+user_number = int(input('Bведите целое положительное число: '))
+max_number = user_number % 10
+while user_number > 0:
+    if user_number % 10 == 9:
+        max_number = user_number % 10
+        break
+    elif user_number % 10 > max_number:
+        max_number = user_number % 10
+    user_number = user_number // 10
+print(max_number)
 
 # 5. Запросите у пользователя значения выручки и издержек фирмы.
 # Определите, с каким финансовым результатом работает фирма.
@@ -88,13 +85,10 @@ revenue = float(input('Введите цифрами (положительное
 cost = float(input('Введите цифрами (положительное число) объем издержек фирмы за тот же период: '))
 profit = revenue - cost
 if profit > 0:
-    profitability = (profit / revenue)*100
-    profitability = round(profitability, 2)
     print(f'Прибыль фирмы ссотавила {profit} денежных единиц')
-    print(f'Рентабельность деятельности фирмы составила {profitability}%')
-    employees = int(input('Пожплуйста, введите количство сотрудников фирмы: '))
-    profit_employee = profitability / employees
-    profit_employee = round(profit_employee, 2)
+    print(f'Рентабельность деятельности фирмы составила {int((profit / revenue)*100)}%')
+    employees = int(input('Введите количество сотрудников фирмы: '))
+    profit_employee = int((profit / revenue)*100) / employees
     print(f'Прибыль на одного сотрудника составила {profit_employee} денежных единиц')
 
 elif profit < 0:
