@@ -3,17 +3,15 @@
 # предусмотреть обработку ситуации деления на ноль.
 
 
+def div(x, y):
+    try:
+        return x / y
+    except ZeroDivisionError:
+        print('На ноль делить нельзя')
+
 x = float(input('Ведите число, котрое будет делимым: '))
 y = float(input('Bедите число, котрое будет делителем: '))
-
-
-def division(x, y):
-    try:
-        return x/y
-    except ZeroDivisionError:
-        print('Вы пытаетсь разделить на "0" - этого делать нельзя')
-
-print(f'Частное от деленя x={x} на y={y} будет равно: {division(x, y)}')
+print(f'Частное от деленя x={x} на y={y} будет равно: {div(x, y)}')
 
 
 # 2. Выполнить функцию, которая принимает несколько параметров,
@@ -21,10 +19,10 @@ print(f'Частное от деленя x={x} на y={y} будет равно:
 # Функция должна принимать параметры как именованные аргументы.
 # Осуществить вывод данных о пользователе одной строкой.
 
-def person_data(f_name = 'Igor', s_name = 'Kiryanov', year = 1965, city = 'Moscow', mail = 'igor@yandex.ru', phone ='891345555'):
-    print(f'Ваши данные: {f_name} {s_name}, год рождения {year}, город проживания {city}, e-mail: {mail}, телефон: {phone} ')
+def print_info(name, last_name, age):
+    print(f'Имя: {name}, Фамилия: {last_name}, Возраст: {age}')
 
-person_data()
+print_info(name = input('введите ваше имя: '), last_name=input('Введите вашу фамилию: '), age=int(input('введите ваш возраст: ')))
 
 
 
@@ -32,21 +30,13 @@ person_data()
 # которая принимает три позиционных аргумента
 # и возвращает сумму наибольших двух аргументов.
 
-def my_func(x, y, z):
-    lis_1 = [x, y, z]
-    lis_1.sort()
-    result = sum(lis_1[-2:])
-    return result
-
-print(my_func(22, 11, 5))
+def summ(ls):
+    ls.sort(reverse=True)
+    return int(ls[0]) + int(ls[1])
 
 
-# Вариант пользовательского ввода
-
-x = float(input('Введите первое число: '))
-y = float(input('Введите второе число: '))
-z = float(input('Введите третье число: '))
-print(my_func(x, y, z))
+ls = input('Введите три целых числа через пробел: ').split()
+print(summ(ls))
 
 
 # 4. Программа принимает действительное положительное число x
@@ -64,39 +54,23 @@ y = int(input('Введите целое отрицательное число -
 
 
 # Вариант со звездочками **
-def my_power(x, y):
-    result = x ** (y)
-    return result
+# Вариант со звездочками **
+def power2(x, y):
+    return x ** y
 
-
-print(my_power(2, -3))
-print(my_power(x, y))
-
-
-# Вариант с циклом while
-def my_power_while(x, y):
-    y = abs(y)
-    result = 1
-    while y > 0:
-        result *= 1 / x
-        y = y - 1
-    return result
-
-
-print(my_power_while(2, -3))
-print(my_power_while(x, y))
-
+print(power2(2, -4))
 
 # Вариант с циклом for
-def my_power_for(x, y):
-    result = 1
-    for i in range(abs(y)):
-        result *= 1 / x
-    return result
+def power1(x, y):
+    if y >= 0:
+        return 'Показатель степени должен быть отрицательным по условаию'
+    res = 1/x
+    for i in range(1, abs(y)):
+        res *= 1/x
+    return res
 
-
-print(my_power_for(2, -3))
-print(my_power_for(x, y))
+print(power1(2, -4))
+print(power1(2, 4))
 
 
 # 5. Программа запрашивает у пользователя строку чисел, разделённых пробелом.
@@ -108,20 +82,19 @@ print(my_power_for(x, y))
 # Если специальный символ введён после нескольких чисел,
 # то вначале нужно добавить сумму этих чисел к полученной ранее сумме
 # и после этого завершить программу.
-def my_sum():
-    sum_numb = 0
-    while True:
-        user_number = input('Введите число: ').split()
-        print(user_number)
-        for item in user_number:
-            if item == 'stop':
-                print(sum_numb)
-                return
-            else:
-                sum_numb += int(item)
-        print(sum_numb) 
 
-my_sum()
+def ls_sum():
+    total_sum = 0
+    while True:
+        numbers = input('Введите целые числа через пробел, для выхода введите "q": ').split()
+        for el in numbers:
+            if el == 'q':
+                print(total_sum)
+                return
+            total_sum += int(el)
+        print(total_sum)
+
+ls_sum()
 
 
 # 6. Реализовать функцию int_func(),
@@ -129,11 +102,8 @@ my_sum()
 # но с прописной первой буквой. Например, print(int_func(‘text’)) -> Text.
 
 
-def int_func():
-    user_text = input('Введите слово: ').lower().title()
-    print(user_text)
-int_func()
-
+def tit(st):
+    return(st.lower().title())
 
 # 7. Продолжить работу над заданием.
 # В программу должна попадать строка из слов, разделённых пробелом.
@@ -141,10 +111,4 @@ int_func()
 # Нужно сделать вывод исходной строки, но каждое слово должно начинаться с заглавной буквы.
 # Используйте написанную ранее функцию int_func().
 
-def int_func(word):
-    word = str(word).lower().title()
-    print(word)
-
-words = input('Введите несколько слов на латинском. Все маленькими буквами, через пробел: ')
-
-int_func(words)
+print(tit(input('ведите предложение из нескольких слов: ')))
