@@ -34,27 +34,22 @@ print(f'Часы: {hours}, минуты: {minutes}, секунды: {sec}')
 # Найдите сумму чисел n + nn + nnn.
 # Например, пользователь ввёл число 3. Считаем 3 + 33 + 333 = 369.
 
-user_number = int(input('Введите целое число: '))
-n = str(user_number)
-print(n)
-nn = n * 2
-print(nn)
-nnn = n * 3
-print(nnn)
-summ = int(n) + int(nn) + int(nnn)
-print(summ)
+n = input('Введите целое число: ')
+print(f'{n} + {n * 2} + {n * 3} = {int(n) + int(n * 2) + int(n * 3)}')
+
 
 # 4. Пользователь вводит целое положительное число.
 # Найдите самую большую цифру в числе.
 # Для решения используйте цикл while и арифметические операции.
+
 user_number = int(input('Bведите целое положительное число: '))
-max_number = user_number % 10
+max_number = 0
 while user_number > 0:
-    if user_number % 10 == 9:
-        max_number = user_number % 10
-        break
-    elif user_number % 10 > max_number:
-        max_number = user_number % 10
+    last_dig = user_number % 10
+    if last_dig > max_number:
+        max_number = last_dig
+        if max_number == 9:
+            break
     user_number = user_number // 10
 print(max_number)
 
@@ -113,11 +108,12 @@ else:
 # 5-й день: 2,93
 # 6-й день: 3,22
 # Ответ: на шестой день спортсмен достиг результата — не менее 3 км.
-a = int(input('Результат первого дня спортсемена а = '))
-b = int(input('Результат котрого нужно достич b = '))
-# print(f'a = {a}, b = {b}') # не был уверен, что это значения a и b нужно выводить
-i = 0
+
+a = int(input('Результат первого дня спортсемена: '))
+b = int(input('Результат котрого нужно достичь: '))
+days = 0
 while a < b:
     a = a + a/10
-    i = i + 1
-print(f'Спортсмен достигнет результата на {i+1} день')
+    days += 1
+    print(f'на день {days} результат: {round(a, 2)}')
+print(f'Спортсмен достигнет результата в {b} км. на {days} день')
