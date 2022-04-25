@@ -7,16 +7,15 @@ list = (1, "2", True, [3, 4], 0.5, (1, 2), {'nuber1': 1, 'number2': 2})
 
 for el in list:
     print(type(el), el)
- 
- 
- # 2. Для списка реализовать обмен значений соседних элементов.
+
+# 2. Для списка реализовать обмен значений соседних элементов.
 # Значениями обмениваются элементы с индексами 0 и 1, 2 и 3 и т. д.
 # При нечётном количестве элементов последний сохранить на своём месте.
 # Для заполнения списка элементов нужно использовать функцию input().
 
 # Решение через цикл for
 user_list = input('Введите элементы списка через пробел: ').split(' ')
-for i in range(0, len(user_list)-1, 2): #len(user_list)-1 --> для нечетного количества элементов, шаг 2, чтобы увеличивать i на 2
+for i in range(0, len(user_list) - 1, 2):  # len(user_list)-1 --> для нечетного количества элементов, шаг 2, чтобы увеличивать i на 2
     print('i =', i)
     user_list[i], user_list[i + 1] = user_list[i + 1], user_list[i]
     print(user_list)
@@ -39,24 +38,37 @@ month = int(input('Введите номер месяца цифрой от 1 д
 d_month = {'winter': [12, 1, 2], 'Spring': [3, 4, 5], 'Summer': [6, 7, 8], 'autumn': [9, 10, 11]}
 
 for key in d_month:
+    if month > 12:
+        print(f'Месяца {month} не существует')
+        break
     if month in d_month[key]:
         print(f' month {month} - is {key}')
+
 
 l_month = [['winter', 12, 1, 2], ['Spring', 3, 4, 5], ['Summer', 6, 7, 8], ['autumn', 9, 10, 11]]
 
 for el in l_month:
+    if month > 12:
+        print(f'Месяца {month} не существует')
+        break
     if month in el:
         print(f' month {month} - is {el[0]}')
-    
-    
+
+# Хитрый вариант решения
+l_month = ['winter', 'Spring', 'Summer', 'autumn']
+if month > 12:
+    print(f'Месяца {month} не существует')
+else:
+    print(f' month {month} - is {l_month[month // 3]}')
+
 # 4. Пользователь вводит строку из нескольких слов, разделённых пробелами.
 # Вывести каждое слово с новой строки. Строки нужно пронумеровать.
 # Если слово длинное, выводить только первые 10 букв в слове.
 
 l_str = input('Введите строку инескольких слов >>> ').split()
 for i, el in enumerate(l_str, 1):
-     print(f' {i}. {el[0:10]}')
-    
+    print(f' {i}. {el[0:10]}')
+
 # 5. Реализовать структуру «Рейтинг»,
 # представляющую собой набор натуральных чисел,
 # который не возрастает.
@@ -80,17 +92,14 @@ rating.sort(reverse=True)
 print(f'Рейтинг обновлен: {rating}')
 
 # Алгоритмический вариант решения
-rating = [7, 5, 3, 3, 2]
+rating2 = [7, 5, 3, 3, 2]
 
-for i, el in enumerate(rating):
-    if new_rat >= el:
-        rating.insert(i, new_rat)
-        break
-    else:
-        rating.insert(len(rating), new_rat)
-
-print(f'Рейтинг обновлен: {rating}')
-
+i = 0
+for el in rating2:
+    if new_rat <= el:
+        i += 1
+rating2.insert(i, new_rat)
+print(f'Рейтинг обновлен: {rating2}')
 
 # 6. (Дополнительно) Реализовать структуру данных «Товары».
 # Она должна представлять собой список кортежей.
