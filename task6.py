@@ -1,5 +1,6 @@
 import time
 
+
 # Задание №6.1
 # Создать класс TrafficLight (светофор).
 # ● определить у него один атрибут color (цвет) и метод running (запуск);
@@ -25,10 +26,12 @@ class TrafficLight:
         print(self.__color[2])
         time.sleep(2)
 
+
 tl = TrafficLight()
 tl.running()
 
 print("*" * 50)
+
 
 # Задание №6.2
 # Реализовать класс Road (дорога).
@@ -55,12 +58,13 @@ class Highway(Road):
         self.thickness = thickness
 
     def mass(self):
-        return f'{int((self._length * self._width * self.weight * self.thickness)/1000)} т.'
+        return f'{int((self._length * self._width * self.weight * self.thickness) / 1000)} т.'
 
 
 highway = Highway(5000, 20, 25, 5)
 print(highway.mass())
 print("*" * 50)
+
 
 # Задание №6.3
 # Реализовать базовый класс Worker (работник).
@@ -74,16 +78,14 @@ print("*" * 50)
 # передать данные, проверить значения атрибутов, вызвать методы экземпляров.
 
 class Worker:
-    def __init__(self, name, surname, position):
+    def __init__(self, name, surname, position, income):
         self.name = name
         self.surname = surname
         self.position = position
-        self._income = {"wage": 150000, "bonus": 50000}
+        self._income = income
+
 
 class Position(Worker):
-    def __init__(self, name, surname, position):
-        Worker.__init__(self, name, surname, position)
-
 
     def get_full_name(self):
         return f'{self.name} {self.surname}'
@@ -91,10 +93,15 @@ class Position(Worker):
     def get_total_income(self):
         return f'{self._income.get("wage") + self._income.get("bonus")}'
 
-worker = Position('Ivanov', 'Ivan', 'data analyst')
-print(worker.get_full_name())
-print(worker.get_total_income())
+
+worker1 = Position('Ivanov', 'Ivan', 'data analyst', {"wage": 150000, "bonus": 50000})
+print(worker1.get_full_name())
+print(worker1.get_total_income())
+worker2 = Position('Petrov', 'Petr', 'system analyst', {"wage": 140000, "bonus": 40000})
+print(worker2.get_full_name())
+print(worker2.get_total_income())
 print("*" * 50)
+
 
 # Задание №6.4
 # Реализуйте базовый класс Car.
@@ -111,12 +118,11 @@ print("*" * 50)
 # выведите результат. Вызовите методы и покажите результат.
 
 class Car:
-    def __init__(self, speed, color, name, is_police):
+    def __init__(self, speed, color, name, is_police=False):
         self.speed = speed
         self.color = color
         self.name = name
         self.is_police = is_police
-
 
     def go(self):
         return 'goes'
@@ -130,47 +136,49 @@ class Car:
     def turn(self, direction):
         return f'turned {direction}'
 
-class TownCar(Car):
     def getinfo(self):
         return f'Класс: {TownCar.__name__}, Скорость: {self.speed}, Цвет: {self.color}, Марка: {self.name}, Полиция? - {self.is_police}'
 
+
+class TownCar(Car):
     def show_speed(self):
-        if self.speed > 60:
-            return 'Превышение скорости'
+        return f'Машина {self.name} едет со скоростью: {self.speed if self.speed <= 60 else "Превышение скорости!"}'
+
 
 class WorkCar(Car):
-    def getinfo(self):
-        return f'Класс: {WorkCar.__name__}, Скорость: {self.speed}, Цвет: {self.color}, Марка: {self.name}, Полиция? - {self.is_police}'
-
     def show_speed(self):
-        if self.speed > 40:
-            return 'Превышение скорости'
+        return f'Машина {self.name} едет со скоростью: {self.speed if self.speed <= 40 else "Превышение скорости!"}'
+
 
 class PoliceCar(Car):
-    def getinfo(self):
-        return f'Класс: {PoliceCar.__name__}, Скорость: {self.speed}, Цвет: {self.color}, Марка: {self.name}, Полиция? - {self.is_police}'
+    # Пусть у класса PoliceCar всем экземплярам по умолчанию будут назначаться одинаковые значения атрибутов color и is_police:
+    def __init__(self, speed, color, name, is_police=True):
+        super().__init__(speed, color, name, is_police)
+        self.color = 'blue'
 
-towncar = TownCar(78, "beige", "BMW", False)
+
+towncar = TownCar(78, "beige", "BMW")
 print(towncar.getinfo())
 print(towncar.go())
 print(towncar.show_speed())
 print(towncar.turn('left'))
 print(towncar.stop())
 print("*" * 50)
-workcar = WorkCar(60, "red", "MAN", False)
+workcar = WorkCar(60, "red", "MAN")
 print(workcar.getinfo())
 print(workcar.go())
 print(workcar.show_speed())
 print(workcar.turn('right'))
 print(workcar.stop())
 print("*" * 50)
-towncar = PoliceCar(200, "blue", "Toyota", True)
-print(towncar.getinfo())
-print(towncar.go())
-print(towncar.show_speed())
-print(towncar.turn('left'))
-print(towncar.stop())
+policecar = PoliceCar(200, "", "Toyota")
+print(policecar.getinfo())
+print(policecar.go())
+print(policecar.show_speed())
+print(policecar.turn('left'))
+print(policecar.stop())
 print("*" * 50)
+
 
 # Задание №6.5
 # Реализовать класс Stationery (канцелярская принадлежность).
@@ -189,17 +197,21 @@ class Stationery:
     def draw(self):
         return 'drawing started'
 
+
 class Pen(Stationery):
     def draw(self):
         return f'{self.title} drawing started'
+
 
 class Pencil(Stationery):
     def draw(self):
         return f'{self.title} drawing started'
 
+
 class Handle(Stationery):
     def draw(self):
         return f'{self.title} drawing started'
+
 
 pen = Pen('Pen')
 pencil = Pencil('Pencil')
